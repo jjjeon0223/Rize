@@ -1,5 +1,5 @@
 {
-  "appId": "com.habittracker.app",
+  "appId": "com.jjjeon0223.habittracker",
   "appName": "Habit Tracker",
   "webDir": "build",
   "server": {
