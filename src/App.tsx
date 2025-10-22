@@ -115,28 +115,37 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: '#0B0D12' }}>
-      <AnimatePresence mode="wait">
-        {activeTab === 'today' && (
-          <TodayView
-            key="today"
-            habits={habits}
-            onComplete={handleCompleteHabit}
-            onAddHabit={() => setIsAddModalOpen(true)}
-          />
-        )}
-        {activeTab === 'heatmap' && <HeatmapView key="heatmap" habits={habits} />}
-        {activeTab === 'insights' && <InsightsView key="insights" habits={habits} />}
-        {activeTab === 'habits' && (
-          <AllHabitsView
-            key="habits"
-            habits={habits}
-            onTogglePause={handleTogglePause}
-            onDelete={handleDeleteHabit}
-            onEdit={handleEditHabit}
-          />
-        )}
-      </AnimatePresence>
+    <div
+      className="h-full w-full flex flex-col"
+      style={{
+        background: '#0B0D12',
+        paddingTop: 'env(safe-area-inset-top)',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+      }}
+    >
+      <div className="flex-1 overflow-hidden">
+        <AnimatePresence mode="wait">
+          {activeTab === 'today' && (
+            <TodayView
+              key="today"
+              habits={habits}
+              onComplete={handleCompleteHabit}
+              onAddHabit={() => setIsAddModalOpen(true)}
+            />
+          )}
+          {activeTab === 'heatmap' && <HeatmapView key="heatmap" habits={habits} />}
+          {activeTab === 'insights' && <InsightsView key="insights" habits={habits} />}
+          {activeTab === 'habits' && (
+            <AllHabitsView
+              key="habits"
+              habits={habits}
+              onTogglePause={handleTogglePause}
+              onDelete={handleDeleteHabit}
+              onEdit={handleEditHabit}
+            />
+          )}
+        </AnimatePresence>
+      </div>
 
       <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
 
@@ -147,7 +156,7 @@ export default function App() {
         editHabit={editingHabit}
       />
 
-      <Toaster 
+      <Toaster
         theme="dark"
         position="top-center"
         toastOptions={{
