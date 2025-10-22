@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker App Icon</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        #icon-container {
+            width: 1024px;
+            height: 1024px;
+            position: relative;
+            border-radius: 226px; /* iOS icon radius ~22% */
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        #icon {
+            width: 100%;
+            height: 100%;
+        }
+
+        .controls {
+            margin-top: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        button {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        button:hover {
+            background: #0051D5;
+        }
+
+        .info {
+            color: #888;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div id="icon-container">
+        <canvas id="icon" width="1024" height="1024"></canvas>
+    </div>
+
+    <div class="controls">
+        <h2>Habit Tracker App Icon</h2>
+        <button onclick="downloadIcon()">Download as PNG</button>
+        <p class="info">
+            This is your app icon at 1024x1024px. Click download to save it, then use it in Xcode.
+        </p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('icon');
+        const ctx = canvas.getContext('2d');
+
+        function drawIcon() {
+            // Background gradient (dark glass effect)
+            const gradient = ctx.createLinearGradient(0, 0, 1024, 1024);
+            gradient.addColorStop(0, '#1a1a2e');
+            gradient.addColorStop(0.5, '#16213e');
+            gradient.addColorStop(1, '#0f1419');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1024, 1024);
+
+            // Add subtle noise/texture
+            for (let i = 0; i < 3000; i++) {
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.03})`;
+                ctx.fillRect(Math.random() * 1024, Math.random() * 1024, 1, 1);
+            }
+
+            // Glass circle background
+            const centerX = 512;
+            const centerY = 512;
+            const radius = 340;
+
+            // Outer glow
+            const glowGradient = ctx.createRadialGradient(centerX, centerY, radius - 50, centerX, centerY, radius + 100);
+            glowGradient.addColorStop(0, 'rgba(139, 92, 246, 0.3)');
+            glowGradient.addColorStop(1, 'rgba(139, 92, 246, 0)');
+            ctx.fillStyle = glowGradient;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius + 100, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Glass circle
+            const circleGradient = ctx.createRadialGradient(centerX - 100, centerY - 100, 0, centerX, centerY, radius);
+            circleGradient.addColorStop(0, 'rgba(139, 92, 246, 0.25)');
+            circleGradient.addColorStop(1, 'rgba(139, 92, 246, 0.1)');
+            ctx.fillStyle = circleGradient;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Circle border
+            ctx.strokeStyle = 'rgba(139, 92, 246, 0.4)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Inner circle ring
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius - 40, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(139, 92, 246, 0.2)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Draw checkmark icon
+            ctx.strokeStyle = '#8b5cf6';
+            ctx.lineWidth = 60;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // Checkmark path
+            ctx.beginPath();
+            ctx.moveTo(300, 500);
+            ctx.lineTo(450, 650);
+            ctx.lineTo(720, 350);
+            ctx.stroke();
+
+            // Add glow to checkmark
+            ctx.shadowColor = '#8b5cf6';
+            ctx.shadowBlur = 30;
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+
+            // Add streak dots (3 small circles)
+            const dotRadius = 20;
+            const dotSpacing = 70;
+            const startX = centerX - dotSpacing;
+            const dotY = centerY - 220;
+
+            for (let i = 0; i < 3; i++) {
+                const dotX = startX + (i * dotSpacing);
+                const dotGradient = ctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, dotRadius);
+                dotGradient.addColorStop(0, '#a78bfa');
+                dotGradient.addColorStop(1, '#8b5cf6');
+
+                ctx.fillStyle = dotGradient;
+                ctx.beginPath();
+                ctx.arc(dotX, dotY, dotRadius, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Dot highlight
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.beginPath();
+                ctx.arc(dotX - 5, dotY - 5, dotRadius / 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Add subtle highlight on top
+            const highlightGradient = ctx.createRadialGradient(centerX, centerY - 200, 0, centerX, centerY, radius);
+            highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.1)');
+            highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = highlightGradient;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function downloadIcon() {
+            const link = document.createElement('a');
+            link.download = 'habit-tracker-icon-1024.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Draw the icon when page loads
+        drawIcon();
+    </script>
+</body>
+</html>
