@@ -184,16 +184,23 @@
 
 html {
   font-size: var(--font-size);
-  /* iOS safe area support */
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  /* Set dark background */
+  background-color: #0B0D12;
   /* Prevent scrolling */
   overflow: hidden;
   height: 100%;
   width: 100%;
   position: fixed;
+  /* Ensure it fills viewport including safe areas */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 body {
+  /* Dark background */
+  background-color: #0B0D12;
   /* Prevent scrolling */
   overflow: hidden;
   height: 100%;
@@ -214,6 +221,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: #0B0D12;
 }
 
 /* Smooth iOS keyboard transitions */
