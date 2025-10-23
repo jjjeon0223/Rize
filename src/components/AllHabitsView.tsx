@@ -17,7 +17,7 @@ export function AllHabitsView({ habits, onTogglePause, onDelete, onEdit }: AllHa
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
   return (
-    <div className="min-h-screen p-6 pb-24" style={{ background: '#0B0D12' }}>
+    <div className="h-full overflow-y-auto p-6 pb-24" style={{ background: '#0B0D12', WebkitOverflowScrolling: 'touch' }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
